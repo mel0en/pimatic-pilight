@@ -1,7 +1,7 @@
 pimatic pilight plugin
 ======================
 
-Deprecated notice
+Limited support notice
 -----------------
 
 **The plugin currently works only with the (outdated) pilight v5. We are looking for a new maintainer for the plugin, because 
@@ -14,6 +14,10 @@ Plugin for the integration of [pilight](https://github.com/pilight/pilight) to c
 and dimmers and get informations from 433Mhz weather stations. See the project page for a list of 
 [supported devices](http://wiki.pilight.org/doku.php/protocols). The pilight-daemon must be running 
 to use this plugin.
+
+Prerequisites
+-------------
+This plugin requires the npm module node-ssdp-lite to be installed. Please run sudo npm install node-ssdp-lite to install this module.
 
 Configuration
 -------------
