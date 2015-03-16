@@ -25,6 +25,9 @@ module.exports = (env) ->
     XBMC: 9
     LIRC: 10
     WEBCAM: 11
+    MOTION: 12
+    DUSK: 13
+    PING: 14
   }
 
   class PilightClient extends events.EventEmitter
@@ -147,7 +150,14 @@ module.exports = (env) ->
         connectDirectly()
 
     sendWelcome: ->
-      @send { message: "client gui" }
+      jsonMsg = {
+        action: "identify"
+        options:
+          config: 1
+          core: 1
+      media: "all"
+      }
+      @send(jsonMsg)
 
     send: (jsonMsg) ->
       env.logger.debug("pilight send: ", JSON.stringify(jsonMsg, null, " ")) if @debug
@@ -160,8 +170,8 @@ module.exports = (env) ->
     onReceive: (jsonMsg) ->
       env.logger.debug("pilight received: ", JSON.stringify(jsonMsg, null, " ")) if @debug
       switch 
-        when jsonMsg.message is "accept client"
-          @send { message: "request config" }
+        when jsonMsg.status is "success"
+          @send { action: "request config" }
         when jsonMsg.config?
           @emit "config", jsonMsg
         when jsonMsg.origin?
